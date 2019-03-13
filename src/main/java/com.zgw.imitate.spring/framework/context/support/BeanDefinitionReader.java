@@ -1,6 +1,6 @@
-package com.zgw.imitate.spring.formework.context.support;
+package com.zgw.imitate.spring.framework.context.support;
 
-import com.zgw.imitate.spring.formework.beans.BeanDefinition;
+import com.zgw.imitate.spring.framework.beans.BeanDefinition;
 
 import java.io.File;
 import java.io.IOException;

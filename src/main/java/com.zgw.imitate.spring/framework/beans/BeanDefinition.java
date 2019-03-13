@@ -1,6 +1,4 @@
-package com.zgw.imitate.spring.formework.beans;
-
-import com.sun.istack.internal.Nullable;
+package com.zgw.imitate.spring.framework.beans;
 
 /**
  *  用来存储类(bean)信息
