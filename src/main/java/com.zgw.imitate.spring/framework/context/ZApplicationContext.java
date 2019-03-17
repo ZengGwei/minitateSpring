@@ -1,6 +1,5 @@
 package com.zgw.imitate.spring.framework.context;
 
-import com.zgw.imitate.spring.demo.action.DemoAction;
 import com.zgw.imitate.spring.framework.annotation.Autowried;
 import com.zgw.imitate.spring.framework.annotation.Controller;
 import com.zgw.imitate.spring.framework.annotation.Service;
@@ -14,6 +13,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -54,8 +54,6 @@ public class ZApplicationContext implements BeanFactory {
         //依赖注入（lazy-init=false）执行依赖注入调用getBean().
         doAutowried();
 
-//        DemoAction demoAction = (DemoAction)this.getBean("demoAction");
-//        demoAction.query(null,null,"zgw");
     }
 
     //自动执行自动化依赖注入
@@ -86,6 +84,7 @@ public class ZApplicationContext implements BeanFactory {
             field.setAccessible(true);
             try {
 //                System.out.println("=======================" +instance +"," + autowriedBeanName + "," + this.beanWrapperMap.get(autowriedBeanName));
+
                 field.set(instance,this.beanWrapperMap.get(autowriedBeanName).getWrappedInstance());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -102,7 +101,7 @@ public class ZApplicationContext implements BeanFactory {
 
               //beanName有三种情况：1.默认 2.自定义 3.接口注入
 
-              if (beanClass.isAnnotation()){continue;}
+              if (beanClass.isInterface()){continue;}
               BeanDefinition beanDefinition = reader.registerBean(className);
               if (beanDefinition != null){
                   this.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(),beanDefinition);
@@ -148,7 +147,7 @@ public class ZApplicationContext implements BeanFactory {
             beanPostProcessor.postProcessAfterInitialization(instanceBean,beanName);
 
             //属性自动化注入
-            populateBean(beanName,instanceBean);
+//            populateBean(beanName,instanceBean);
 
             return  this.beanWrapperMap.get(beanName).getWrappedInstance();//这样返回一个包装过的Bean,增大可操作空间
         }catch (Exception e){
@@ -178,5 +177,23 @@ public class ZApplicationContext implements BeanFactory {
 
         return null;
     }
+
+
+
+    public String[] getBeanDefinitionNames() {
+//        return getBeanFactory().getBeanDefinitionNames();//返回什么？？
+        return this.beanDefinitionMap.keySet().toArray(new String[this.beanDefinitionMap.size()]);
+    }
+
+    public int getBeanDefinitionCount() {
+
+//        return getBeanFactory().getBeanDefinitionCount();
+        return this.beanDefinitionMap.size();
+    }
+
+    public Properties getConfig(){
+        return this.reader.getConfig();
+    }
+
 
 }
