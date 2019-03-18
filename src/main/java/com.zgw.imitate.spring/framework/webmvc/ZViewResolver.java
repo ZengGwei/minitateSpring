@@ -27,25 +27,30 @@ public class ZViewResolver {
         StringBuilder sb =new StringBuilder();
         RandomAccessFile ra =new RandomAccessFile(this.templateFile,"r");
         String line =null;
-        while (null !=(line=ra.readLine())){
-            Matcher matcher = matcher(line);
-            while (matcher.find()){
-                for (int i = 1; i <=matcher.groupCount() ; i++) {
+        try {
+            while (null !=(line=ra.readLine())){
+                Matcher matcher = matcher(line);
+                while (matcher.find()){
+                    for (int i = 1; i <=matcher.groupCount() ; i++) {
 
-                    //要把￥{} 吧中间的字符串取出
-                    String paramName = matcher.group(i);
-                    Object paramValue = mv.getModel().get(paramName);
-                    if (null == paramName){continue;}
-                    line = line.replaceAll("￥\\{"+paramName+"\\}",paramValue.toString());
+                        //要把&{} 把中间的字符串取出
+                        String paramName = matcher.group(i);
+                        Object paramValue = mv.getModel().get(paramName);
+                        if (null == paramName){continue;}
+                        line = line.replaceAll("&\\{"+paramName+"\\}",paramValue.toString());
+                    }
                 }
+                sb.append(line);
             }
-            sb.append(line);
+        }finally {
+            ra.close();
         }
+
         return sb.toString();
     }
 
     private Matcher matcher(String str){
-        Pattern pattern = Pattern.compile("￥\\{(.+?)\\}",Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile("&\\{(.+?)\\}",Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
         return matcher;
     }

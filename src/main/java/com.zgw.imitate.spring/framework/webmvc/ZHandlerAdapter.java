@@ -28,8 +28,6 @@ public class ZHandlerAdapter {
     public ZModelAndView handle(HttpServletRequest req, HttpServletResponse resp, ZHandlerMapping handlerMapping) throws InvocationTargetException, IllegalAccessException {
         //根据用户的请求参数信息，跟method中的参数信息动态匹配
         //resp 只是为了赋值给方法参数就此而已。传递功能
-
-
         //当用户传ModelAndView 为空的时候 才会new一个默认
         //方法重载：形参的决定因素：参数的个数、参数的类型、参数的顺序、方法的名字
         Class<?>[] parameterTypes = handlerMapping.getMethod().getParameterTypes();
@@ -39,7 +37,7 @@ public class ZHandlerAdapter {
         //构造实参列表
         Object[] paramValues = new Object[parameterTypes.length];
         for (Map.Entry<String,String[]> param:parameterMap.entrySet()){
-            String value = Arrays.toString(param.getValue()).replaceAll("\\[|\\]]","").replaceAll("\\s","");
+            String value = Arrays.toString(param.getValue()).replaceAll("\\[|\\]","").replaceAll("\\s","");
             if(!this.paramMapping.containsKey(param.getKey())){
                 continue;
             }
@@ -48,7 +46,8 @@ public class ZHandlerAdapter {
             //因为页面传值是string,方法参数类型 不确定
             //要针对性类型转换
 
-            caseStringValue(value,parameterTypes[index]);
+            Object o = caseStringValue(value, parameterTypes[index]);
+            paramValues[index] =o;
 
         }
         if (this.paramMapping.containsKey(HttpServletRequest.class.getName())){

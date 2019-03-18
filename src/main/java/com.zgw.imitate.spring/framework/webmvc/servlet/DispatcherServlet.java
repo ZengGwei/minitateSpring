@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.annotation.Documented;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -104,7 +103,6 @@ public class DispatcherServlet extends HttpServlet {
     //将Controller中配置的requestMapping和Method的进行一一对应
     private void initHandlerMappings(ZApplicationContext context) {
         //这里是个Map<String,Method>--->springMVC用个封装的list不用map
-        //
 
         //从容器取到所有的实例
         String[] beanNames = context.getBeanDefinitionNames();

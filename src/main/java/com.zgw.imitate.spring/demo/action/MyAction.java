@@ -7,9 +7,6 @@ import com.zgw.imitate.spring.framework.annotation.Controller;
 import com.zgw.imitate.spring.framework.annotation.RequestMapping;
 import com.zgw.imitate.spring.framework.annotation.RequestParam;
 import com.zgw.imitate.spring.framework.webmvc.ZModelAndView;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
-
-import javax.management.modelmbean.ModelMBean;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,8 +15,8 @@ import java.util.Map;
 @Controller
 public class MyAction {
 
-		@Autowried
-		IDemoService demoService;
+//		@Autowried
+//		IDemoService demoService;
 
 		@RequestMapping("/first.html")
 		public ZModelAndView query(@RequestParam("user") String user){
