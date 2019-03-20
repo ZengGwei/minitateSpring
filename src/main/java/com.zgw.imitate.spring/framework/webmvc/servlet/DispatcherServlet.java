@@ -1,9 +1,9 @@
 package com.zgw.imitate.spring.framework.webmvc.servlet;
 
-import com.zgw.imitate.spring.demo.action.DemoAction;
-import com.zgw.imitate.spring.framework.annotation.Controller;
-import com.zgw.imitate.spring.framework.annotation.RequestMapping;
-import com.zgw.imitate.spring.framework.annotation.RequestParam;
+import com.zgw.imitate.spring.framework.annotation.ZController;
+import com.zgw.imitate.spring.framework.annotation.ZRequestMapping;
+import com.zgw.imitate.spring.framework.annotation.ZRequestParam;
+import com.zgw.imitate.spring.framework.aop.AopProxyUtils;
 import com.zgw.imitate.spring.framework.context.ZApplicationContext;
 import com.zgw.imitate.spring.framework.webmvc.ZHandlerAdapter;
 import com.zgw.imitate.spring.framework.webmvc.ZHandlerMapping;
@@ -105,36 +105,40 @@ public class DispatcherServlet extends HttpServlet {
         //这里是个Map<String,Method>--->springMVC用个封装的list不用map
 
         //从容器取到所有的实例
-        String[] beanNames = context.getBeanDefinitionNames();
-        for (String beanName : beanNames) {
-            Object instance = context.getBean(beanName);
-            Class<?> aClass = instance.getClass();
-            //
-            if (!aClass.isAnnotationPresent(Controller.class)) {
-                continue;
-            }
-            String beanUrl = "";
-            if (aClass.isAnnotationPresent(RequestMapping.class)) {
-                RequestMapping re = aClass.getAnnotation(RequestMapping.class);
-                String baseUrl = re.value();
-            }
-            //扫描所有publlic方法
-            Method[] methods = aClass.getMethods();
-            for (Method method : methods) {
-                if (!method.isAnnotationPresent(RequestMapping.class)) {
+        try {
+
+
+            String[] beanNames = context.getBeanDefinitionNames();
+            for (String beanName : beanNames) {
+
+                Object proxy = context.getBean(beanName);//返回的对象不是beanWappper，而是代理对象==》代理对象上没有注解
+                Object targetObject = AopProxyUtils.getTargetObject(proxy);//找到原生对象，
+                Class<?> aClass = targetObject.getClass();
+                //
+                if (!aClass.isAnnotationPresent(ZController.class)) {
                     continue;
                 }
+                String beanUrl = "";
+                if (aClass.isAnnotationPresent(ZRequestMapping.class)) {
+                    ZRequestMapping re = aClass.getAnnotation(ZRequestMapping.class);
+                    String baseUrl = re.value();
+                }
+                //扫描所有public方法
+                Method[] methods = aClass.getMethods();
+                for (Method method : methods) {
+                    if (!method.isAnnotationPresent(ZRequestMapping.class)) {
+                        continue;
+                    }
+                    ZRequestMapping ZRequestMapping = method.getAnnotation(ZRequestMapping.class);
+                    String regex = "/" + beanUrl + ZRequestMapping.value().replaceAll("\\*", ".*").replaceAll("/+", "");
+                    Pattern pattern = Pattern.compile(regex);
+                    this.handlerMapping.add(new ZHandlerMapping(pattern, proxy, method));
+                    System.out.println("Mapping:" + regex + "," + method);
 
-                RequestMapping requestMapping = method.getAnnotation(RequestMapping.class);
-                String regex = "/" + beanUrl + requestMapping.value().replaceAll("\\*",".*").replaceAll("/+", "");
-
-                Pattern pattern = Pattern.compile(regex);
-
-                this.handlerMapping.add(new ZHandlerMapping(pattern, instance, method));
-
-                System.out.println("Mapping:" + regex + "," + method);
+                }
 
             }
+        } catch (Exception e) {
 
         }
     }
@@ -148,8 +152,8 @@ public class DispatcherServlet extends HttpServlet {
             Annotation[][] parameterAnnotations = handlerMapping.getMethod().getParameterAnnotations();
             for (int i = 0; i < parameterAnnotations.length; i++) {
                 for (Annotation a : parameterAnnotations[i]) {
-                    if (a instanceof RequestParam) {
-                        String paramName = ((RequestParam) a).value();
+                    if (a instanceof ZRequestParam) {
+                        String paramName = ((ZRequestParam) a).value();
                         if (!"".equals(paramName.trim())) {
                             paramMapping.put(paramName, i);
                         }
@@ -221,7 +225,7 @@ public class DispatcherServlet extends HttpServlet {
     private void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws IOException, InvocationTargetException, IllegalAccessException {
         //根据用户请求url
         ZHandlerMapping handlerMapping = getHandler(req);
-        if(handlerMapping==null){
+        if (handlerMapping == null) {
             resp.getWriter().write("404 Not Found\r\n@zspringmvc");
         }
         ZHandlerAdapter handlerAdapter = getHandlerAdapter(handlerMapping);
@@ -235,13 +239,19 @@ public class DispatcherServlet extends HttpServlet {
 
     private void processDispatchResult(HttpServletResponse resp, ZModelAndView modelAndView) throws IOException {
         //调用viewResolver 的resolver 方法
-        if (null ==modelAndView){ return;  }
-        if (this.viewResolversList.isEmpty()){return;}
+        if (null == modelAndView) {
+            return;
+        }
+        if (this.viewResolversList.isEmpty()) {
+            return;
+        }
 
-        for (ZViewResolver viewResolver :this.viewResolversList){
-            if (!modelAndView.getViewNmae().equals(viewResolver.getViewName())){ continue; }
+        for (ZViewResolver viewResolver : this.viewResolversList) {
+            if (!modelAndView.getViewNmae().equals(viewResolver.getViewName())) {
+                continue;
+            }
             String out = viewResolver.viewResolver(modelAndView);
-            if (null != out){
+            if (null != out) {
                 resp.getWriter().write(out);
                 break;
             }
@@ -253,18 +263,24 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     private ZHandlerAdapter getHandlerAdapter(ZHandlerMapping handlerMapping) {
-        if(this.handlerAdapters.isEmpty()){return null;}
-        return  handlerAdapters.get(handlerMapping);
+        if (this.handlerAdapters.isEmpty()) {
+            return null;
+        }
+        return handlerAdapters.get(handlerMapping);
     }
 
     private ZHandlerMapping getHandler(HttpServletRequest req) {
-        if(this.handlerMapping.isEmpty()){return  null;}
+        if (this.handlerMapping.isEmpty()) {
+            return null;
+        }
         String url = req.getRequestURI();
         String contextPath = req.getContextPath();
-        url.replace(contextPath,"").replaceAll("/+","/");
-        for(ZHandlerMapping handler:this.handlerMapping){
+        url.replace(contextPath, "").replaceAll("/+", "/");
+        for (ZHandlerMapping handler : this.handlerMapping) {
             Matcher matcher = handler.getUrlPattern().matcher(url);
-            if (!matcher.matches()){continue;}
+            if (!matcher.matches()) {
+                continue;
+            }
             return handler;
         }
         return null;

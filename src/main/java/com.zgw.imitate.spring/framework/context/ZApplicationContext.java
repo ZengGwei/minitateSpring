@@ -1,8 +1,9 @@
 package com.zgw.imitate.spring.framework.context;
 
-import com.zgw.imitate.spring.framework.annotation.Autowried;
-import com.zgw.imitate.spring.framework.annotation.Controller;
-import com.zgw.imitate.spring.framework.annotation.Service;
+import com.zgw.imitate.spring.framework.annotation.ZAutowried;
+import com.zgw.imitate.spring.framework.annotation.ZController;
+import com.zgw.imitate.spring.framework.annotation.ZService;
+import com.zgw.imitate.spring.framework.aop.AopConfig;
 import com.zgw.imitate.spring.framework.beans.BeanDefinition;
 import com.zgw.imitate.spring.framework.beans.BeanPostProcessor;
 import com.zgw.imitate.spring.framework.beans.BeanWrapper;
@@ -10,24 +11,26 @@ import com.zgw.imitate.spring.framework.context.support.BeanDefinitionReader;
 import com.zgw.imitate.spring.framework.core.BeanFactory;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 〈〉*
  * Created by gw.Zeng on 2019/3/10
  */
-public class ZApplicationContext implements BeanFactory {
+public class ZApplicationContext extends DefaultListableBeanFactory implements BeanFactory {
 
     private String[] configLocation;
 
     private BeanDefinitionReader reader;
 
-    //保存bean配置信息
-    private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
+
 
     //用来保证注册式单列
     private Map<String,Object> beanCacheMap = new HashMap<String, Object>();
@@ -65,19 +68,19 @@ public class ZApplicationContext implements BeanFactory {
             }
         }
         for(Map.Entry<String,BeanWrapper> beanWrapperEntry:this.beanWrapperMap.entrySet()){
-            populateBean(beanWrapperEntry.getKey(),beanWrapperEntry.getValue().getOriginalInstance());
+            populateBean(beanWrapperEntry.getKey(),beanWrapperEntry.getValue().getWrappedInstance());//TODO 注入代理对象？？
         }
     }
 
     public void populateBean(String beanName,Object instance){
         Class<?> clazz = instance.getClass();
 
-        if(!(clazz.isAnnotationPresent(Controller.class)|| clazz.isAnnotationPresent(Service.class))){  return; }
+        if(!(clazz.isAnnotationPresent(ZController.class)|| clazz.isAnnotationPresent(ZService.class))){  return; }
         Field[] fields = clazz.getDeclaredFields();
         for (Field field:fields){
-            if (!field.isAnnotationPresent(Autowried.class)){continue;}
-            Autowried autowried = field.getAnnotation(Autowried.class);
-            String autowriedBeanName = autowried.value().trim();
+            if (!field.isAnnotationPresent(ZAutowried.class)){continue;}
+            ZAutowried ZAutowried = field.getAnnotation(ZAutowried.class);
+            String autowriedBeanName = ZAutowried.value().trim();
             if("".equals(autowriedBeanName)){
                 autowriedBeanName = field.getType().getName();
             }
@@ -140,22 +143,49 @@ public class ZApplicationContext implements BeanFactory {
             beanPostProcessor.postProcessBeforeInitialization(instanceBean,beanName);
 
             BeanWrapper beanWrapper = new BeanWrapper(instanceBean);
+
+            beanWrapper.setAopConfig(instanceAopConfig(beanDefinition));
+
             beanWrapper.setBeanPostProcessor(beanPostProcessor);
             this.beanWrapperMap.put(beanName,beanWrapper);
 
             //在实例初始化之后调用一次
             beanPostProcessor.postProcessAfterInitialization(instanceBean,beanName);
-
-            //属性自动化注入
-//            populateBean(beanName,instanceBean);
-
             return  this.beanWrapperMap.get(beanName).getWrappedInstance();//这样返回一个包装过的Bean,增大可操作空间
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
         return null;
+    }
+
+    private AopConfig instanceAopConfig(BeanDefinition beanDefinition) throws ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+        AopConfig aopConfig = new AopConfig();
+
+        String pointCut = reader.getConfig().getProperty("pointCut");
+        String[] aspectBefore = reader.getConfig().getProperty("aspectBefore").split("\\s");
+        String[] aspectAfter = reader.getConfig().getProperty("aspectAfter").split("\\s");
+
+        String className =beanDefinition.getBeanClassName();
+        Class<?> aClass = Class.forName(className);
+
+        Pattern pattern = Pattern.compile(pointCut);
+        Class<?> aspectClass = Class.forName(aspectBefore[0]);
+
+        for (Method method:aClass.getMethods()){
+            //public .* com\.zgw\.imitate\.spring\.demo\.service\..*ZService\..*\(.*\)
+            //public java.lang.String com.zgw.imitate.spring.demo.service.impl.ModifyService.add(java.lang.String,java.lang.String)
+            Matcher matcher = pattern.matcher(method.toString());
+            if (matcher.matches()){
+                //把能满足规则的类 添加到aop配置中
+                aopConfig.put(method,aspectClass.newInstance(),new Method[]{aspectClass.getMethod(aspectAfter[1]),
+                        aspectClass.getMethod(aspectBefore[1])});
+            }
+
+
+        }
+
+
+        return aopConfig;
     }
 
     //传一个beanDefinition 返回一个bean实例

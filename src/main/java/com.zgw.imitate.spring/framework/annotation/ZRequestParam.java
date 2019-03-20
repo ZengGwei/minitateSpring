@@ -5,9 +5,10 @@ import java.lang.annotation.*;
 /**
  * Created by gw.zeng on 2018/7/14.
  */
-@Target({ElementType.TYPE,ElementType.METHOD})
+
+@Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface RequestMapping {
-    String value();
+public @interface ZRequestParam {
+    String value() default "";
 }

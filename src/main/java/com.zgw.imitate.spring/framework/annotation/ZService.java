@@ -5,9 +5,9 @@ import java.lang.annotation.*;
 /**
  * Created by gw.zeng on 2018/7/14.
  */
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Autowried {
+public @interface ZService {
     String value() default "";
 }
