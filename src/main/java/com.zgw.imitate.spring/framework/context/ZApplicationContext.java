@@ -65,14 +65,16 @@ public class ZApplicationContext extends DefaultListableBeanFactory implements B
             String beanName = beanDefinitionEntry.getKey();
             if(!beanDefinitionEntry.getValue().isLazyInit()){
                 Object bean = getBean(beanName);
+                if (bean == null){return;}
+                populateBean("",bean.getClass());
             }
         }
-        for(Map.Entry<String,BeanWrapper> beanWrapperEntry:this.beanWrapperMap.entrySet()){
-            populateBean(beanWrapperEntry.getKey(),beanWrapperEntry.getValue().getWrappedInstance());//TODO 注入代理对象？？
-        }
+//        for(Map.Entry<String,BeanWrapper> beanWrapperEntry:this.beanWrapperMap.entrySet()){
+//            populateBean(beanWrapperEntry.getKey(),beanWrapperEntry.getValue().getWrappedInstance());//TODO 注入代理对象？？
+//        }
     }
 
-    public void populateBean(String beanName,Object instance){
+    public void populateBean(String beanName,Object instance){//给属性对象赋值
         Class<?> clazz = instance.getClass();
 
         if(!(clazz.isAnnotationPresent(ZController.class)|| clazz.isAnnotationPresent(ZService.class))){  return; }
@@ -193,14 +195,19 @@ public class ZApplicationContext extends DefaultListableBeanFactory implements B
         Object instance = null;
         String beanClassName = beanDefinition.getBeanClassName();
         try {//TODO 考虑线程安全？？？
-            if(this.beanCacheMap.containsKey(beanClassName)){
-                instance =this.beanCacheMap.get(beanClassName);
-            }else {
-                Class<?> clazz = Class.forName(beanClassName);
-                 instance = clazz.newInstance();
-                this.beanCacheMap.put(beanClassName,instance);
+            synchronized (this){
+                if(this.beanCacheMap.containsKey(beanClassName)){
+                    instance =this.beanCacheMap.get(beanClassName);
+                }else {
+                    Class<?> clazz = Class.forName(beanClassName);
+                    instance = clazz.newInstance();
+
+
+
+                    this.beanCacheMap.put(beanClassName,instance);
+                }
+                return instance;
             }
-            return instance;
         }catch (Exception e){
             e.printStackTrace();
         }
