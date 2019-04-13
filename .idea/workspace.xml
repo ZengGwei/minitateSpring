@@ -39,7 +39,7 @@
         <counts>
           <entry key="project.closed" value="17" />
           <entry key="project.open.time.0" value="5" />
-          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.24" value="1" />
@@ -49,7 +49,7 @@
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.46" value="1" />
           <entry key="project.open.time.79" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -59,7 +59,7 @@
           <entry key="java" value="10227" />
           <entry key="md" value="1" />
           <entry key="properties" value="125" />
-          <entry key="txt" value="61" />
+          <entry key="txt" value="80" />
           <entry key="xml" value="15" />
         </counts>
       </usages-collector>
@@ -68,7 +68,7 @@
           <entry key="HTML" value="104" />
           <entry key="JAVA" value="10227" />
           <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="61" />
+          <entry key="PLAIN_TEXT" value="80" />
           <entry key="Properties" value="125" />
           <entry key="VTL" value="14" />
           <entry key="XML" value="15" />
@@ -107,23 +107,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="147">
-                <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <first_editor relative-caret-position="105">
+                <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="107" />
               </first_editor>
               <second_editor />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/springmini/mini/demo/action/MyAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
+            <state relative-caret-position="336">
+              <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -246,9 +246,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -258,18 +258,58 @@
             </path>
             <path>
               <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="springmini" type="462c0819:PsiDirectoryNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="springmini" type="462c0819:PsiDirectoryNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="springmini" type="462c0819:PsiDirectoryNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="mini" type="462c0819:PsiDirectoryNode" />
+              <item name="com.zgw.imitate.spring" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com.zgw.imitate.spring" type="462c0819:PsiDirectoryNode" />
+              <item name="framework" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="springImitate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="springImitate" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -281,7 +321,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555142016892" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555158152353" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../springmini" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -291,22 +331,22 @@
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Java" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\myProgram\springImitate\src\main\test" />
-      <recent name="D:\myProgram\springImitate\src\main\resources" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\myProgram\springImitate\src\main\resources\layouts" />
+      <recent name="D:\myProgram\springImitate\springmini" />
+      <recent name="D:\myProgram\springImitate\src\main\webapp\WEB-INF" />
+      <recent name="D:\myProgram\springImitate\src\main\java\com.zgw.imitate.spring\demo" />
+      <recent name="D:\myProgram\springImitate\src\main\java\com.zgw.imitate.spring\formework\annotation" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.zgw.imitate.spring.framework.webmvc" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\myProgram\springImitate\springmini" />
-      <recent name="D:\myProgram\springImitate\src\main\resources\layouts" />
-      <recent name="D:\myProgram\springImitate\src\main\webapp\WEB-INF" />
-      <recent name="D:\myProgram\springImitate\src\main\java\com.zgw.imitate.spring\demo" />
-      <recent name="D:\myProgram\springImitate\src\main\java\com.zgw.imitate.spring\formework\annotation" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\myProgram\springImitate\src\main\test" />
+      <recent name="D:\myProgram\springImitate\src\main\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -438,6 +478,7 @@
       <workItem from="1553817248917" duration="872000" />
       <workItem from="1555140639333" duration="438000" />
       <workItem from="1555141627469" duration="532000" />
+      <workItem from="1555152025527" duration="822000" />
     </task>
     <task id="LOCAL-00001" summary="依赖注入">
       <created>1552439132205</created>
@@ -488,17 +529,23 @@
       <option name="project" value="LOCAL" />
       <updated>1555141988531</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="spring aop  时序图">
+      <created>1555152088539</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1555152088539</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76654000" />
+    <option name="totallyTimeSpent" value="77476000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49927008" visible="true" weight="0.19296375" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49927008" visible="true" weight="0.19509594" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -610,7 +657,8 @@
     <MESSAGE value="Spring AOP" />
     <MESSAGE value="源码分析时序图" />
     <MESSAGE value="springmini" />
-    <option name="LAST_COMMIT_MESSAGE" value="springmini" />
+    <MESSAGE value="spring aop  时序图" />
+    <option name="LAST_COMMIT_MESSAGE" value="spring aop  时序图" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -867,9 +915,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1386">
           <caret line="84" column="6" selection-start-line="84" selection-start-column="6" selection-end-line="84" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -884,11 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="19" column="20" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-          <folding>
-            <element signature="e#488#512#0" expanded="true" />
-            <element signature="e#562#563#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -913,6 +953,7 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../springmini/test/src/main/main30.iml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com.zgw.imitate.spring/framework/context/AbstractApplicationContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -920,23 +961,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../springmini/test/src/main/main30.iml">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/springmini/mini/demo/action/MyAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="147">
-            <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <first_editor relative-caret-position="105">
+            <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="107" />
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/springmini/mini/demo/action/MyAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
         </state>
       </provider>
     </entry>
