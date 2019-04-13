@@ -3,5 +3,5 @@
 
 
 spring源码分析及 时序图
-![](https://github.com/ZengGwei/designPattern/blob/master/src/patternimg/patter3.png)
+![](https://github.com/ZengGwei/minitateSpring/blob/master/src/main/resources/layouts/SpringAnalyzeImg.jpg)
 
