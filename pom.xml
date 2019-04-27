@@ -12,13 +12,8 @@
         <!-- dependency versions -->
         <servlet.api.version>2.4</servlet.api.version>
     </properties>
-
-
     <dependencies>
-
-
         <!-- requied start -->
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
